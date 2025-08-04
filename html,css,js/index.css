@@ -1,0 +1,49 @@
+*{
+    background-color: #FAF9EE;
+}
+
+header p{
+font-size:xx-large;
+ color: #3E3F29;;
+}
+/* .container{
+
+    text-align: center;
+} */
+
+ /* .container{
+    background-color: #7D8D86;
+    height: 500px;
+    width: 600px;
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.formBox label{
+    background-color: #7D8D86;  
+   
+} */
+.wrapper{
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.container{
+    
+    text-align: center;
+    width: 600px;
+    height: 500px;
+}
+.formBox{
+    display: flex;
+    flex-direction: column;
+flex-wrap: nowrap;
+}
+
+ #submit:hover{
+background-color: aliceblue;
+}
