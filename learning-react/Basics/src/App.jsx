@@ -1,12 +1,13 @@
 import "./App.css";
 import { useState } from "react";
 import Card from "./components/card";
+import Form from "./components/form";
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <h1 className="font-serif text-xl ">Menu</h1>
+      {/* <h1 className="font-serif text-xl ">Menu</h1>
       <Card
         foodType={{ name: "Drinks", id: 1, type: ["Tea", "Coffee", "Water"] }} //props
         count={count}
@@ -32,7 +33,8 @@ function App() {
         count={count}
         setCount={setCount}
         
-      />
+      /> */}
+      <Form />
     </>
   );
 }

@@ -1,9 +1,12 @@
+import { useState } from "react";
 function Card({ foodType, count, setCount }) {
+  // const [message, setMessage] = useState("");
   function handleCount(item) {
-    count = count +1
+    count = count + 1;
     setCount(count);
 
     console.log(`${count}`);
+    // setMessage(`the count is ${count}`);
   }
   //a component <> fragment
   return (
@@ -20,6 +23,7 @@ function Card({ foodType, count, setCount }) {
           </li>
         ))}
       </ul>
+      {/* <p>{message}</p> */}
     </>
   );
 }
