@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import Card from "./components/card";
 import Form from "./components/form";
+import List from "./components/arrays";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -34,7 +35,8 @@ function App() {
         setCount={setCount}
         
       /> */}
-      <Form />
+      {/* <Form /> */}
+      <List/>
     </>
   );
 }
