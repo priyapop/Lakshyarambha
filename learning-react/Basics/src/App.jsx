@@ -4,6 +4,7 @@ import Card from "./components/card";
 import Form from "./components/form";
 import List from "./components/arrays";
 import Quiz from "./components/quiz";
+import { News } from "./components/news";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -38,7 +39,7 @@ function App() {
       /> */}
       {/* <Form /> */}
       {/* <List/> */}
-      <Quiz/>
+        <News/>
     </>
   );
 }
