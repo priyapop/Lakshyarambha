@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 export const News = () => {
   const [news, setNews] = useState([]);
   const [query, setQuery] = useState("apple");
+  const apiKey = import.meta.env.VITE_NEWS_API_KEY;
 
   const fetchNews = async (query) => {
-    const url = `https://newsapi.org/v2/everything?q=${query}&from=2025-07-12&sortBy=publishedAt&apiKey=a19ccd4d6d564169b478dde51113e2f5`;
+  const url = `https://newsapi.org/v2/everything?q=${query}&from=2025-07-12&sortBy=publishedAt&apiKey=${apiKey}`;
 
     const response = await axios.get(url);
     console.log(response, "response");
