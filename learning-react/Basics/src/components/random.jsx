@@ -34,7 +34,7 @@ export const Random = () => {
             )
             .map((item) => (
               <div
-                className="text-black w-8 h-8  rounded-full bg-blue-100  "
+                className="text-black w-8 h-8 flex justify-center rounded-full bg-blue-100  "
                 key={item.userId}
               >
                 <h1
@@ -47,15 +47,15 @@ export const Random = () => {
             ))}
         </div>
         {post.map((item) => (
-          <div className="grid grid-flow-rows gap-2 " key={item.id}>
-            <div className="border-y border-white-100 pt-4  pb-4">
+          <div  key={item.id}>
+            <div className="border-y grid grid-rows-1 grid-cols-[40px_minmax(auto,auto)] gap-2 border-white-100 pt-4  pb-4">
               {item.userId === uid && (
                 <>
-                  <h1 className="w-5 h-5 rounded-full bg-blue-100">
+                  <h1 className="w-6 h-6 text-black flex justify-center rounded-full bg-blue-100">
                     {item.userId}
                   </h1>
                   <h1 className="text-blue-500">{item.title}</h1>
-                  <p>{item.body}</p>
+                  <p className="col-span-2">{item.body}</p>
                 </>
               )}
             </div>
