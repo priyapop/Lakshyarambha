@@ -1,13 +1,30 @@
-const express = require('express');
+import dotenv from 'dotenv'
+dotenv.config()
+import express from 'express'
+import connectDB from './config/db.js'
+// import User from './model/user.js'
+import User from './model/User.js'
+
+ 
 const app = express();
-const PORT = 3000;
-// Middleware to parse JSON
-app.use(express.json());
-// Default route
-app.get('/', (req, res) => {
-res.send('Hello from Express!');
+
+app.use(express.json())
+
+connectDB()
+app.post('/api/users',async(req,res)=>{
+    try{
+        const user =await
+        User.create(req.body)
+        res.status(201).json(user)
+    }
+    catch(err){
+        res.status(500).json({
+            error: err.message
+        })
+    }
+})
+app.get("/", (req, res) => {
+  res.send("Hello from the server");
 });
-// Start server
-app.listen(PORT, () => {
-console.log(`Server running at http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
