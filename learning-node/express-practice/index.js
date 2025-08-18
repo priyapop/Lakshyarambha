@@ -4,7 +4,8 @@ import express from 'express'
 import connectDB from './config/db.js'
 import User from './model/User.js'
 import userRoutes from './routes/userRoutes.js'
- 
+import blogRoutes from './routes/blogRoutes.js'
+
 const app = express();
 
 app.use(express.json())
@@ -18,3 +19,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 app.use("/api/users", userRoutes);
+app.use("/blog", blogRoutes);
