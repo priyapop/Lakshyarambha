@@ -47,8 +47,8 @@ export const deleteBlog = async (req, res) => {
 };
 export const getBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find();
-    res.status(200).json(blogs);
+    const user = await Blog.find().populate('author')
+    res.status(200).json(user);
   } catch (err) {
     res.status(500).json({
       error: err.message,
@@ -70,5 +70,17 @@ export const getBlogById = async (req, res) => {
     res.status(500).json({
       error: err.message,
     });
+  }
+};
+
+export const getBlogsByCategory = async (req, res) => {
+  try {
+    const category = req.params.category;
+
+    const blogs = await Blog.find({ category }).populate("author", "name email");
+
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch blogs by category" });
   }
 };
