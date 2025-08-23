@@ -6,6 +6,11 @@ import List from "./components/arrays";
 import Quiz from "./components/quiz";
 import { News } from "./components/news";
 import { Random } from "./components/random";
+import { Blogs } from "./components/Blogs";
+import { Link, Route, Routes } from "react-router-dom";
+
+import { SingleBlog } from "./components/SingleBlog";
+import { BlogForm } from "./components/CreateBlogs";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -40,8 +45,21 @@ function App() {
       /> */}
       {/* <Form /> */}
       {/* <List/> */}
-        <Random/>
-
+      <Blogs />
+      <nav className="flex gap-4  p-4">
+        <Link to="home">Home </Link>
+        <Link to="users">Users </Link>
+        <Link to="blogs">Blogs </Link>
+        <Link to="create">Create </Link>
+        {/* <Link to ="blogs/:id">Blogs </Link>  */}
+        <Link to="contact">Contact </Link>
+      </nav>
+      <Route path="/home" element={<Children />}></Route>
+      <Route path="/users" element={<News />}></Route>
+      <Route path="/contact" element={<Children />}></Route>
+      <Route path="/create" element={<BlogForm />}></Route>
+      <Route path="/blogs" element={<Blogs />}></Route>
+      <Route path="/blogs/:id" element={<SingleBlog />}></Route>
     </>
   );
 }
