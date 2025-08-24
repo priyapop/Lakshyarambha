@@ -6,10 +6,14 @@ import User from './model/User.js'
 import userRoutes from './routes/userRoutes.js'
 import blogRoutes from './routes/blogRoutes.js'
 import movieRoutes from './routes/movieRoutes.js'
+import cors from "cors"
+
+
 
 const app = express();
 
 app.use(express.json())
+app.use(cors());
 
 connectDB()
 
