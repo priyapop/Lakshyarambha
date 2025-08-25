@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const BlogForm = () => {
+  const [add,setAdd] = useState(false)
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -36,7 +37,8 @@ const BlogForm = () => {
     e.preventDefault()
     const payload = {
       ...formData,
-      tags: formData.tags.split(',').map(tag => tag.trim()),
+      tags: formData.tags ? formData.tags.split(',').map(tag => tag.trim()) : []
+
     }
     try {
       const response = await axios.post("http://localhost:3000/blog/createblog", payload);
@@ -55,6 +57,16 @@ const BlogForm = () => {
       [name]: value,
     }))
   }
+
+  const   handleChangeAdd =(e)=>{
+     setAdd(!add)
+      const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
 
   return (
     <>
@@ -80,7 +92,7 @@ const BlogForm = () => {
         <select
           name="category"
           value={formData.category}
-          onChange={handleChange}
+         onChange={handleChangeAdd}
           className="w-full p-2 border border-gray-300 rounded"
           required
         >
@@ -90,7 +102,16 @@ const BlogForm = () => {
               {cat}
             </option>
           ))}
+         <option  value="Add">Add New</option>
+          
         </select>
+         {/* <button onClick={handleAdd}>Add</button>
+          {
+            setAdd && <input type="text" />
+          } */}
+          {
+            add && <input type="text" placeholder="add new" />
+          }
         <input
           type="text"
           name="tags"

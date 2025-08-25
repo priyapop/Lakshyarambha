@@ -4,7 +4,7 @@ export const createBlog = async (req,res) =>{
         const blog = await Blog.create(req.body)
         res.status(201).json(blog)
     }
-    catch{
+    catch(err){
         res.status(500).json({
             error:err.message
         })
