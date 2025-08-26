@@ -6,5 +6,5 @@ import {createBlog,updateBlog,deleteBlog,getBlogs,getBlogById} from '../controll
  router.put("/updateblog/:id", updateBlog)
 router.delete("/deleteblog/:id", deleteBlog);
 router.get("/all", getBlogs);       // all blogs
-router.get("/blogs/:id", getBlogById); // single blog
+router.get("/:id", getBlogById); // single blog
  export default router
