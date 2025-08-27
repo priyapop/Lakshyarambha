@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import "./App.css";
 
+import "./App.css"
+import CreateCategories from './components/CreateCategories'
 import { NavLink, Route, Routes } from "react-router-dom";
 import { Blogs } from "./components/blog";
 import SingleBlog from "./components/SingleBlog";
@@ -11,6 +11,7 @@ function App() {
     { to: "/home", label: "Home" },
     { to: "/blogs", label: "Blogs" },
     { to: "/create", label: "Create" },
+    {to:"/create-category",label:"Create Category"}
   ];
 
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/create" element={<BlogForm />}></Route>
         <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="/blogs/:id" element={<SingleBlog />}></Route>
+        <Route path='/create-category' element={<CreateCategories/>}></Route>
       </Routes>
     </>
   );

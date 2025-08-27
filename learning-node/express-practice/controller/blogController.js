@@ -47,7 +47,7 @@ export const deleteBlog = async (req, res) => {
 };
 export const getBlogs = async (req, res) => {
   try {
-    const user = await Blog.find().populate('author')
+    const user = await Blog.find().populate('author').populate('category') 
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json({

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BlogForm = () => {
-  const [add,setAdd] = useState(false)
+  const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -11,67 +13,81 @@ const BlogForm = () => {
     coverImage: "",
     author: "",
   });
-  const categories = [
-    "Technology",
-    "Lifestyle",
-    "Travel",
-    "Food",
-    "Education",
-    "Business",
-    "Entertainment",
-  ];
-  const [authors, setAuthors] = useState([]);
-  useEffect(() => {
-    const fetchAuthors = async () => {
-      try {
-        const res = await axios.get("http://localhost:3000/api/users/get");
 
-        setAuthors(res.data);
-      } catch {
-        console.error("Error fetching authors:");
-      }
-    };
-    fetchAuthors(), [];
-  });
-  const handleSubmit= async(e)=>{
-    e.preventDefault()
+  //  const fetchCategories = async () => {
+  //         const res = await axios.get('http://localhost:3000/categories/all')
+  //         setCategories(res?.data)
+  //     }
+
+  const [authors, setAuthors] = useState([]);
+
+  const fetchAuthors = async () => {
+    const res = await axios.get("http://localhost:3000/api/users/get");
+    setAuthors(res?.data);
+  };
+
+  const fetchCategories = async () => {
+    const res = await axios.get("http://localhost:3000/categories/all");
+    setCategories(res?.data);
+  };
+
+  // useEffect(() => {
+  //   const fetchAuthors = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:3000/api/users/get");
+
+  //       setAuthors(res.data);
+  //     } catch {
+  //       console.error("Error fetching authors:");
+  //     }
+  //   };
+  //   fetchAuthors()
+  // }, []);
+
+  useEffect(() => {
+    fetchAuthors();
+    fetchCategories();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const payload = {
       ...formData,
-      tags: formData.tags ? formData.tags.split(',').map(tag => tag.trim()) : []
-
-    }
+      tags: formData.tags
+        ? formData.tags.split(",").map((tag) => tag.trim())
+        : [],
+    };
     try {
-      const response = await axios.post("http://localhost:3000/blog/createblog", payload);
+      const response = await axios.post(
+        "http://localhost:3000/blog/createblog",
+        payload
+      );
       console.log("Blog created:", response.data);
-      
+      alert("blog created successfully");
+      navigate("/blogs");
     } catch (err) {
       console.error("Error creating blog:", err);
     }
+  };
 
-  }
-
-  const handleChange = (e) =>{
- const { name, value } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
-  const   handleChangeAdd =(e)=>{
-     setAdd(!add)
-      const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
 
 
   return (
     <>
-      <form onSubmit={handleSubmit} className=" max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        className=" max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md space-y-4"
+      >
         <h2 className="text-2xl font-semibold">Create a new post</h2>
+        <label htmlFor="title">Title</label>
         <input
           type="text"
           name="title"
@@ -81,6 +97,7 @@ const BlogForm = () => {
           onChange={handleChange}
           required
         />
+        <label htmlFor="title">Content</label>
         <textarea
           name="content"
           placeholder="Write your blog content..."
@@ -89,29 +106,21 @@ const BlogForm = () => {
           onChange={handleChange}
           required
         />
+        <label htmlFor="category">Category</label>
         <select
           name="category"
-          value={formData.category}
-         onChange={handleChangeAdd}
           className="w-full p-2 border border-gray-300 rounded"
-          required
+          value={formData.category}
+          onChange={handleChange}
         >
           <option value="">Select Category</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
+          {categories?.map((cat) => (
+            <option key={cat._id} value={cat._id}>
+              {cat?.title}{" "}
             </option>
           ))}
-         <option  value="Add">Add New</option>
-          
         </select>
-         {/* <button onClick={handleAdd}>Add</button>
-          {
-            setAdd && <input type="text" />
-          } */}
-          {
-            add && <input type="text" placeholder="add new" />
-          }
+        <label htmlFor="tags">Tags</label>
         <input
           type="text"
           name="tags"
@@ -120,6 +129,7 @@ const BlogForm = () => {
           className="w-full p-2 border border-gray-300 rounded"
           value={formData.tags}
         />
+        <label htmlFor="image">Image</label>
         <input
           type="text"
           name="coverImage"
@@ -128,7 +138,7 @@ const BlogForm = () => {
           className="w-full p-2 border border-gray-300 rounded"
           value={formData.coverImage}
         />
-
+        <label htmlFor="author">Author</label>
         <select
           name="author"
           value={formData.author}
