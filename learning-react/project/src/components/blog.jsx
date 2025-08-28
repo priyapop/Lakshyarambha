@@ -2,7 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Blogs = () => {
+export const Blogs = ({ limit }) => {
+  
   const [blog, setBlog] = useState([]);
   const navigate = useNavigate();
 
@@ -23,11 +24,14 @@ catch (error) {
   useEffect(() => {
     fetchBlog();
   }, []);
-
+  const sortedBlogs= [...blog].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  )
+const visibleBlogs = (limit ? sortedBlogs.slice(0, limit) : sortedBlogs)
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-        {blog?.map((item, index) => (
+      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+        {visibleBlogs?.map((item, index) => (
           <div
             key={index}
             onClick={() => navigate(`${item?._id}`)}
@@ -36,10 +40,10 @@ catch (error) {
             <img
               src={item.coverImage}
               alt={item.title}
-              className="h-48 w-full object-cover"
+              className="h-35 w-full object-cover"
             />
 
-            <div className="p-4 space-y-2">
+            <div className="p-4 space-y-1">
               <h2 className="text-xl font-bold text-gray-800">{item.title}</h2>
               <p className="text-sm text-gray-600">
                 {item.content.slice(0, 100)}...
