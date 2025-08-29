@@ -6,12 +6,13 @@ import { Blogs } from "./components/blog";
 import SingleBlog from "./components/SingleBlog";
 import BlogForm from "./components/CreateBlog";
 import Home from "./components/home";
+import BlogPage from "./components/BlogPage";
 function App() {
   const links = [
     { to: "/home", label: "Home" },
-    { to: "/blogs", label: "Blogs" },
+    { to: "/blogs", label: "Browse" },
     { to: "/create", label: "Create" },
-    {to:"/create-category",label:"Create Category"}
+    // {to:"/create-category",label:"Create Category"}
   ];
 
   return (
@@ -37,7 +38,7 @@ function App() {
 
       <Routes>
         <Route path="/create" element={<BlogForm />}></Route>
-        <Route path="/blogs" element={<Blogs />}></Route>
+        <Route path="/blogs" element={<BlogPage />}></Route>
         <Route path="/blogs/:id" element={<SingleBlog />}></Route>
         <Route path='/create-category' element={<CreateCategories/>}></Route>
         <Route path="/home" element={<Home/>}></Route>

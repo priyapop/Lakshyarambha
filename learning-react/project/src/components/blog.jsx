@@ -2,35 +2,33 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Blogs = ({ limit }) => {
-  
+export const Blogs = ({ limit, className }) => {
   const [blog, setBlog] = useState([]);
   const navigate = useNavigate();
 
   const fetchBlog = async () => {
-    try{
-    const url = "http://localhost:3000/blog/all";
-    const response = await axios.get(url);
-    console.log(response, "response");
-    setBlog(response.data);
-    }
-catch (error) {
+    try {
+      const url = "http://localhost:3000/blog/all";
+      const response = await axios.get(url);
+      console.log(response, "response");
+      setBlog(response.data);
+    } catch (error) {
       console.log(error);
       alert(error.response.data.error);
     }
-
   };
 
   useEffect(() => {
     fetchBlog();
   }, []);
-  const sortedBlogs= [...blog].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-  )
-const visibleBlogs = (limit ? sortedBlogs.slice(0, limit) : sortedBlogs)
+  const sortedBlogs = [...blog].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+  const visibleBlogs = limit ? sortedBlogs.slice(0, limit) : sortedBlogs;
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+      <div className={`grid gap-6 ${className} `}>
+        {/*//sm:grid-cols-1 lg:grid-cols-3 gap-6 */}
         {visibleBlogs?.map((item, index) => (
           <div
             key={index}
@@ -61,7 +59,8 @@ const visibleBlogs = (limit ? sortedBlogs.slice(0, limit) : sortedBlogs)
               </div>
 
               <div className="text-sm text-gray-500">
-                Category: <span className="font-medium">{item?.category?.title }</span>
+                Category:{" "}
+                <span className="font-medium">{item?.category?.title}</span>
               </div>
               <div className="text-sm text-gray-500">
                 Author:{" "}

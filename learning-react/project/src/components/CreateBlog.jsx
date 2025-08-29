@@ -84,9 +84,9 @@ const BlogForm = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className=" max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md space-y-4"
+        className=" mt-6 my-5 max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md space-y-4"
       >
-        <h2 className="text-2xl font-semibold">Create a new post</h2>
+        <h2 className="text-m font-medium">Create a new post</h2>
         <label htmlFor="title">Title</label>
         <input
           type="text"
@@ -156,7 +156,7 @@ const BlogForm = () => {
         </select>
         <button
           type="submit"
-          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+          className="bg-black text-white py-2 px-4 rounded mx-auto block hover:bg-[#1C1B2A]"
         >
           Submit
         </button>
