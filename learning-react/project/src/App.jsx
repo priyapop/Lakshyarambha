@@ -6,7 +6,8 @@ import { Blogs } from "./components/blog";
 import SingleBlog from "./components/SingleBlog";
 import BlogForm from "./components/CreateBlog";
 import Home from "./components/home";
-import BlogPage from "./components/BlogPage";
+import BlogPage from "./components/BlogPage"
+import SingleCategory from "./components/SingleCategory";
 function App() {
   const links = [
     { to: "/home", label: "Home" },
@@ -41,6 +42,7 @@ function App() {
         <Route path="/blogs" element={<BlogPage />}></Route>
         <Route path="/blogs/:id" element={<SingleBlog />}></Route>
         <Route path='/create-category' element={<CreateCategories/>}></Route>
+        <Route path='/single-category/:aa' element={<SingleCategory/>}></Route>
         <Route path="/home" element={<Home/>}></Route>
       </Routes>
     </>

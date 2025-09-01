@@ -1,4 +1,5 @@
 import Blog from "../model/Blog.js"
+import Category from "../model/category.js"
 export const createBlog = async (req,res) =>{
     try{
         const blog = await Blog.create(req.body)
@@ -75,10 +76,14 @@ export const getBlogById = async (req, res) => {
 
 export const getBlogsByCategory = async (req, res) => {
   try {
-    const category = req.params.category;
+    const {aa} = req.params;
 
-    const blogs = await Blog.find({ category }).populate("author", "name email");
-
+    const category = await Category.findOne({ title:aa })
+    if (!category) {
+      return res.status(404).json({ message: "category not found" });
+    }
+    const blogs = await Blog.find({category:category._id}).populate("author", "name email")
+      .populate("category", "name")
     res.status(200).json(blogs);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch blogs by category" });

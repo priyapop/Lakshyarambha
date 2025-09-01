@@ -1,5 +1,5 @@
 import express from 'express'
-import {createBlog,updateBlog,deleteBlog,getBlogs,getBlogById} from '../controller/blogController.js'
+import {createBlog,updateBlog,deleteBlog,getBlogs,getBlogById, getBlogsByCategory} from '../controller/blogController.js'
 
  const router = express.Router()
  router.post("/createblog",createBlog)
@@ -7,4 +7,5 @@ import {createBlog,updateBlog,deleteBlog,getBlogs,getBlogById} from '../controll
 router.delete("/deleteblog/:id", deleteBlog);
 router.get("/all", getBlogs);       // all blogs
 router.get("/:id", getBlogById); // single blog
+router.get("/category/:aa", getBlogsByCategory); 
  export default router

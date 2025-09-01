@@ -22,7 +22,11 @@ export const Home = () => {
   }
     const handleCategory = () => {
     navigate("/create-category");
-  };
+  }
+  const handleSingleCategory = (e) =>{
+    const aa =e.target.innerText
+    navigate(`/single-category/${aa}`);
+  }
   const cat = categories.length > 10 ? categories.slice(0, 10) : categories;
   return (
     <>
@@ -53,13 +57,13 @@ export const Home = () => {
         <h1 className="py-5 pb-5 text-sm mt-5">Popular Categories</h1>
         <div className="grid text-xs font-medium lg:grid-cols-5 sm:grid-cols-2 gap-4  ">
           {cat?.map((cat) => (
-            <span
+            <button onClick={handleSingleCategory}
               className="border border-[#D1D3D7] px-2 py-2 text-center rounded-lg"
               key={cat._id}
               value={cat._id}
             >
               {cat?.title}{" "}
-            </span>
+            </button >
           ))}
           <button onClick={handleCategory} className="h-8 w-35 sm:col-span-2 lg:col-span-5 text-sm justify-self-center rounded-lg font-medium border-[#e7e7e7] border hover:bg-[#1C1B2A] text-white bg-black">
           Create Categorie
