@@ -8,12 +8,16 @@ import BlogForm from "./components/CreateBlog";
 import Home from "./components/home";
 import BlogPage from "./components/BlogPage"
 import SingleCategory from "./components/SingleCategory";
+import Login from "./components/login";
+import Signup from "./components/signup";
 function App() {
   const links = [
     { to: "/home", label: "Home" },
     { to: "/blogs", label: "Browse" },
     { to: "/create", label: "Create" },
     // {to:"/create-category",label:"Create Category"}
+    { to: "/login", label: "Login" },
+    { to: "/signup", label: "Signup" },
   ];
 
   return (
@@ -44,6 +48,8 @@ function App() {
         <Route path='/create-category' element={<CreateCategories/>}></Route>
         <Route path='/single-category/:aa' element={<SingleCategory/>}></Route>
         <Route path="/home" element={<Home/>}></Route>
+        <Route path="/login" element={<Login/>}></Route>
+        <Route path="/signup" element={<Signup/>}></Route>
       </Routes>
     </>
   );

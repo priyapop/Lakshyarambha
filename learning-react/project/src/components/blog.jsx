@@ -6,6 +6,11 @@ export const Blogs = ({ limit, className }) => {
   const [blog, setBlog] = useState([]);
   const navigate = useNavigate();
 
+  const token = localStorage.getItem('token')
+  if(!token) {
+    alert ('invalid route')
+    navigate('/')}
+
   const fetchBlog = async () => {
     try {
       const url = "http://localhost:3000/blog/all";
@@ -18,9 +23,19 @@ export const Blogs = ({ limit, className }) => {
     }
   };
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   fetchBlog();
+  // }, []);
+
+ useEffect(() => {
+    const token = localStorage.getItem('token')
+  if(!token) {
+    
+    navigate('/')}
     fetchBlog();
   }, []);
+
+
   const sortedBlogs = [...blog].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );

@@ -7,6 +7,7 @@ import userRoutes from './routes/userRoutes.js'
 import blogRoutes from './routes/blogRoutes.js'
 import movieRoutes from './routes/movieRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
+import authRoutes from "./routes/authRoutes.js"
 import cors from "cors"
 
 
@@ -28,3 +29,4 @@ app.use("/api/users", userRoutes);
 app.use("/blog", blogRoutes);
 app.use("/movie", movieRoutes);
 app.use("/categories", categoryRoutes);
+app.use("/auth",authRoutes);

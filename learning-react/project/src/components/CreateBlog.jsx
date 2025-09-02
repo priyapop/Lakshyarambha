@@ -3,8 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const BlogForm = () => {
-  const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
+  const navigate = useNavigate()
+  const [categories, setCategories] = useState([])
+  const token = localStorage.getItem('token')
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -13,11 +14,6 @@ const BlogForm = () => {
     coverImage: "",
     author: "",
   });
-
-  //  const fetchCategories = async () => {
-  //         const res = await axios.get('http://localhost:3000/categories/all')
-  //         setCategories(res?.data)
-  //     }
 
   const [authors, setAuthors] = useState([]);
 
@@ -30,19 +26,6 @@ const BlogForm = () => {
     const res = await axios.get("http://localhost:3000/categories/all");
     setCategories(res?.data);
   };
-
-  // useEffect(() => {
-  //   const fetchAuthors = async () => {
-  //     try {
-  //       const res = await axios.get("http://localhost:3000/api/users/get");
-
-  //       setAuthors(res.data);
-  //     } catch {
-  //       console.error("Error fetching authors:");
-  //     }
-  //   };
-  //   fetchAuthors()
-  // }, []);
 
   useEffect(() => {
     fetchAuthors();
@@ -58,7 +41,7 @@ const BlogForm = () => {
         : [],
     };
     try {
-      const response = await axios.post(
+      const response = await api.post(
         "http://localhost:3000/blog/createblog",
         payload
       );
