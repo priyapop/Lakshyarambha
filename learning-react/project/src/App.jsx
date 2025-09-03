@@ -1,7 +1,7 @@
 
 import "./App.css"
 import CreateCategories from './components/CreateCategories'
-import { NavLink, Route, Routes } from "react-router-dom";
+import { NavLink,useLocation, Route, Routes } from "react-router-dom";
 import { Blogs } from "./components/blog";
 import SingleBlog from "./components/SingleBlog";
 import BlogForm from "./components/CreateBlog";
@@ -10,20 +10,29 @@ import BlogPage from "./components/BlogPage"
 import SingleCategory from "./components/SingleCategory";
 import Login from "./components/login";
 import Signup from "./components/signup";
+import BlogsIcon from "./assets/Blogs (6).svg"; 
+import Landing from "./components/landing"; 
 function App() {
-  const links = [
+  const location = useLocation()
+  const landingLinks = [
+    { to: "/login", label: "Login" },
+    { to: "/signup", label: "Signup" },
+  ]
+  const appLinks = [
     { to: "/home", label: "Home" },
     { to: "/blogs", label: "Browse" },
     { to: "/create", label: "Create" },
     // {to:"/create-category",label:"Create Category"}
-    { to: "/login", label: "Login" },
-    { to: "/signup", label: "Signup" },
+    // { to: "/login", label: "Login" },
+    // { to: "/signup", label: "Signup" },
   ];
-
+const links = location.pathname === "/" ? landingLinks : appLinks
   return (
     <>
    
-      <nav className="mt-5 border-y-2  border-gray-300 flex justify-end pl-25 pr-25  gap-4 p-3 text-sm font-mono ">
+      <nav className="sticky top-0 border-y-2 bg-white border-gray-300 flex items-center justify-between pl-25 pr-25 p-3 text-sm font-mono ">
+        <img src={BlogsIcon} alt="Blogs" className="h-9" />
+        <div className="flex items-center gap-4">
         {links.map(({ to, label }) => (
           <NavLink
             key={to}
@@ -37,11 +46,14 @@ function App() {
             {label}
           </NavLink>
         ))}
+        </div>
+
       </nav>
 
 
 
       <Routes>
+        <Route path="/" element={<Landing />}></Route>
         <Route path="/create" element={<BlogForm />}></Route>
         <Route path="/blogs" element={<BlogPage />}></Route>
         <Route path="/blogs/:id" element={<SingleBlog />}></Route>
