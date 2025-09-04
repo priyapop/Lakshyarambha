@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
-
+import  { useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -70,9 +70,10 @@ const Signup = () => {
         />
 
         <button type="submit" className="bg-blue-400 p-4 rounded-sm ">
-          submit
+          Signup
         </button>
       </form>
+      
     </div>
   );
 };

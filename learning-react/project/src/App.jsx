@@ -15,8 +15,8 @@ import Landing from "./components/landing";
 function App() {
   const location = useLocation()
   const landingLinks = [
-    { to: "/login", label: "Login" },
-    { to: "/signup", label: "Signup" },
+    { action:<Login/>, label: "Get Started" },
+   
   ]
   const appLinks = [
     { to: "/home", label: "Home" },
@@ -33,8 +33,9 @@ const links = location.pathname === "/" ? landingLinks : appLinks
       <nav className="sticky top-0 border-y-2 bg-white border-gray-300 flex items-center justify-between pl-25 pr-25 p-3 text-sm font-mono ">
         <img src={BlogsIcon} alt="Blogs" className="h-9" />
         <div className="flex items-center gap-4">
-        {links.map(({ to, label }) => (
-          <NavLink
+        {links.map(({ to, label,action }) => (
+          to ? (
+            <NavLink
             key={to}
             to={to}
             className={({ isActive }) =>
@@ -44,7 +45,13 @@ const links = location.pathname === "/" ? landingLinks : appLinks
             }
           >
             {label}
+            
           </NavLink>
+          ) : action ? (
+            <span >{action}</span>
+          ): null
+          
+          
         ))}
         </div>
 
