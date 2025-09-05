@@ -1,6 +1,6 @@
 import axios from "axios";
 import  { useState } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -15,7 +15,7 @@ const Signup = () => {
       [name]: value,
     }));
   };
-
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,6 +26,7 @@ const Signup = () => {
       );
       console.log(response, "done posting");
       alert("user created successfully");
+      response.status === 200 ? navigate("/home") : ""
     } catch (error) {
       console.log(error);
       alert("user not created");
@@ -33,45 +34,46 @@ const Signup = () => {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit} className="max-w-2xl space-y-4">
-        <h2 className="text-3xl font-bold text-center">Create User</h2>
+      <form onSubmit={handleSubmit} className="space-y-2">
+        <h2 className="text-xl font-semibold text-gray-900">Create User</h2>
 
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
         <input
           type="text"
           name="name"
           placeholder="enter your name"
           value={formData.name}
-          className="w-full p-2 border border-gray-300 rounded"
+           className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm  "
           onChange={handleChange}
           required
         />
 
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
         <input
           type="email"
           name="email"
           placeholder="enter your email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full p-2 border border-gray-300 rounded"
+           className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm"
           required
         />
 
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
         <input
           type="password"
           name="password"
           placeholder="enter your password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full p-2 border border-gray-300 rounded"
+           className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm"
           required
         />
 
-        <button type="submit" className="bg-blue-400 p-4 rounded-sm ">
+        <button type="submit" className="w-full rounded-lg bg-black px-4 py-2 text-white font-medium shadow hover:bg-[#1C1B2A] focus:outline-none focus:ring-2  transition">
           Signup
         </button>
+        
       </form>
       
     </div>
