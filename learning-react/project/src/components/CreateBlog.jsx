@@ -41,7 +41,7 @@ const BlogForm = () => {
         : [],
     };
     try {
-      const response = await api.post(
+      const response = await axios.post(
         "http://localhost:3000/blog/createblog",
         payload
       );
