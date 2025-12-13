@@ -17,7 +17,20 @@ export const register = async (req, res) => {
       password: hashedPassword,
       email,
     });
-    res.json({ user: { id: newUser?._id, email: newUser?.email } });
+    //res.json({user: { id: newUser?._id, email: newUser?.email } });
+     const token = jwt.sign(
+      { id: newUser._id },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    )
+     res.json({
+      message: "Registration successful",
+      token,
+      user: {
+        id: newUser._id,
+        email: newUser.email,
+      },
+    });
   } catch (error) {
     console.log(error);
   }

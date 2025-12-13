@@ -5,22 +5,22 @@ import { useNavigate } from "react-router-dom";
 const BlogForm = () => {
   const navigate = useNavigate()
   const [categories, setCategories] = useState([])
-  const token = localStorage.getItem('token')
+  
   const [formData, setFormData] = useState({
     title: "",
     content: "",
     category: "",
     tags: "",
     coverImage: "",
-    author: "",
+    // author: "",
   });
 
-  const [authors, setAuthors] = useState([]);
+  // const [authors, setAuthors] = useState([]);
 
-  const fetchAuthors = async () => {
-    const res = await axios.get("http://localhost:3000/api/users/get");
-    setAuthors(res?.data);
-  };
+  // const fetchAuthors = async () => {
+  //   const res = await axios.get("http://localhost:3000/api/users/get");
+  //   setAuthors(res?.data);
+  // };
 
   const fetchCategories = async () => {
     const res = await axios.get("http://localhost:3000/categories/all");
@@ -28,10 +28,11 @@ const BlogForm = () => {
   };
 
   useEffect(() => {
-    fetchAuthors();
+    // fetchAuthors();
     fetchCategories();
   }, []);
-
+  const token = localStorage.getItem("token")
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
@@ -41,10 +42,20 @@ const BlogForm = () => {
         : [],
     };
     try {
-      const response = await axios.post(
-        "http://localhost:3000/blog/createblog",
-        payload
-      );
+      // const response = await axios.post(
+      //   "http://localhost:3000/blog/createblog",
+      //   payload
+      // );
+
+       const response = await axios.post(
+        "http://localhost:3000/blog/create",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
       console.log("Blog created:", response.data);
       alert("blog created successfully");
       navigate("/blogs");
@@ -121,7 +132,7 @@ const BlogForm = () => {
           className="w-full p-2 border border-gray-300 rounded"
           value={formData.coverImage}
         />
-        <label htmlFor="author">Author</label>
+        {/* <label htmlFor="author">Author</label>
         <select
           name="author"
           value={formData.author}
@@ -136,7 +147,7 @@ const BlogForm = () => {
               {author.name} ({author.email})
             </option>
           ))}
-        </select>
+        </select> */}
         <button
           type="submit"
           className="bg-black text-white py-2 px-4 rounded mx-auto block hover:bg-[#1C1B2A]"

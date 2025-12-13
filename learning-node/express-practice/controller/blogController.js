@@ -2,9 +2,12 @@ import Blog from "../model/Blog.js"
 import Category from "../model/category.js"
 export const createBlog = async (req,res) =>{
     try{
-        const blog = await Blog.create(req.body)
-        res.status(201).json(blog)
+        const blogData = {
+      ...req.body,
+      author: req.user.id,
     }
+     const blog = await Blog.create(blogData)
+    res.status(201).json(blog)}
     catch(err){
         res.status(500).json({
             error:err.message
