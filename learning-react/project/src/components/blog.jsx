@@ -47,7 +47,7 @@ export const Blogs = ({ limit, className }) => {
         {visibleBlogs?.map((item, index) => (
           <div
             key={index}
-            onClick={() => navigate(`${item?._id}`)}
+            onClick={() => navigate(`/blogs/${item?._id}`)}
             className="cursor-pointer bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200"
           >
             <img
