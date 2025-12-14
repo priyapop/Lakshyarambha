@@ -26,6 +26,7 @@ const Signup = () => {
       );
       console.log(response, "done posting");
       localStorage.setItem("token", response.data.token);
+      
       alert("user created successfully");
       response.status === 200 ? navigate("/home") : ""
     } catch (error) {

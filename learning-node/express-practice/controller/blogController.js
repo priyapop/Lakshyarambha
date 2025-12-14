@@ -1,19 +1,19 @@
-import Blog from "../model/Blog.js"
-import Category from "../model/category.js"
-export const createBlog = async (req,res) =>{
-    try{
-        const blogData = {
+import Blog from "../model/Blog.js";
+import Category from "../model/category.js";
+export const createBlog = async (req, res) => {
+  try {
+    const blogData = {
       ...req.body,
       author: req.user.id,
-    }
-     const blog = await Blog.create(blogData)
-    res.status(201).json(blog)}
-    catch(err){
-        res.status(500).json({
-            error:err.message
-        })
-    }
-}
+    };
+    const blog = await Blog.create(blogData);
+    res.status(201).json(blog);
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
 export const updateBlog = async (req, res) => {
   try {
     const { id } = req.params; // blog id from URL
@@ -51,7 +51,8 @@ export const deleteBlog = async (req, res) => {
 };
 export const getBlogs = async (req, res) => {
   try {
-    const user = await Blog.find().populate('author').populate('category') 
+    const user = await Blog.find().populate("author").populate("category");
+
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json({
@@ -62,8 +63,10 @@ export const getBlogs = async (req, res) => {
 
 export const getBlogById = async (req, res) => {
   try {
-    const { id } = req.params;
-    const blog = await Blog.findById(id);
+    // const { id } = req.params;
+    const blog = await Blog.findById(req.params.id)
+      .populate("author")
+      .populate("category");
 
     if (!blog) {
       return res.status(404).json({ message: "Blog not found" });
@@ -79,14 +82,15 @@ export const getBlogById = async (req, res) => {
 
 export const getBlogsByCategory = async (req, res) => {
   try {
-    const {aa} = req.params;
+    const { aa } = req.params;
 
-    const category = await Category.findOne({ title:aa })
+    const category = await Category.findOne({ title: aa });
     if (!category) {
       return res.status(404).json({ message: "category not found" });
     }
-    const blogs = await Blog.find({category:category._id}).populate("author", "name email")
-      .populate("category", "name")
+    const blogs = await Blog.find({ category: category._id })
+      .populate("author", "name email")
+      .populate("category", "name");
     res.status(200).json(blogs);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch blogs by category" });

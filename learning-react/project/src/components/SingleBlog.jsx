@@ -34,10 +34,13 @@ const fetchSingleBlog = async ()=> {
 
       <div className="text-sm text-gray-500 mb-4">
         <span className="mr-4">
-          Author: <span className="text-gray-700 font-medium">{blog?.author?.name}</span>
+          Author: {" "}<span className="text-gray-700 font-medium">{blog?.author?.name}</span>
         </span>
+        {/* <span className="mr-4">
+          Author: {" "}<span className="text-gray-700 font-medium">{userName}</span>
+        </span> */}
         <span>
-          Category: <span className="text-gray-700 font-medium">{blog.category}</span>
+          Category:{" "} <span className="text-gray-700 font-medium">{blog?.category?.title}</span>
         </span>
         <div className="text-xs mt-1 text-gray-400">
           Posted on {new Date(blog.createdAt).toLocaleDateString()}

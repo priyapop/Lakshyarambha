@@ -30,6 +30,7 @@ const Login = () => {
       );
       console.log(response, "done posting");
       localStorage.setItem("token", response.data.token);
+      // localStorage.setItem("user", JSON.stringify(res.data.user))
       response.status === 200 ? navigate("/home") : ""
     } catch (error) {
       console.log(error);

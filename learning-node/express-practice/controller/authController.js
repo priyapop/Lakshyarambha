@@ -29,6 +29,7 @@ export const register = async (req, res) => {
       user: {
         id: newUser._id,
         email: newUser.email,
+        name: newUser.name
       },
     });
   } catch (error) {
@@ -41,13 +42,14 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ msg: "User not found" });
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
     res.json({
       token,
       message: "Authentication successful",
-      user: { id: user._id, email: user.email },
+      user: { id: user._id, email: user.email ,name: user.name},
     });
   } catch (error) {
     console.log(error);
