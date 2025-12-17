@@ -96,3 +96,18 @@ export const getBlogsByCategory = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch blogs by category" });
   }
 };
+
+export const getBlogByAuthor = async (req, res) => {
+  try {
+    const blogs = await Blog.find({ author: req.params.id })
+      .populate("author");
+
+    if (!blogs.length) {
+      return res.status(404).json({ message: "No blogs found for this author" });
+    }
+
+    res.status(200).json(blogs);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

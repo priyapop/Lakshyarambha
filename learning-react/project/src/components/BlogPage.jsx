@@ -6,7 +6,7 @@ export const BlogPage = () => {
     <>
       <div className="flex flex-col gap-4 items-center">
         <h1 className="text-xl font-medium pt-5">Browse Content</h1>
-        <span>Discover blogs and vlogs from our community of creators</span>
+        <span>Discover blogs from our community of creators</span>
       </div>
       <div >
 

@@ -6,6 +6,7 @@ import {
   getBlogs,
   getBlogById,
   getBlogsByCategory,
+  getBlogByAuthor,
 } from "../controller/blogController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 const router = express.Router();
@@ -16,4 +17,5 @@ router.get("/all", getBlogs); // all blogs
 router.get("/:id", getBlogById); // single blog
 router.get("/category/:aa", getBlogsByCategory);
 router.post("/create", authMiddleware, createBlog);
+router.get("/user/:id/blogs", getBlogByAuthor);
 export default router;

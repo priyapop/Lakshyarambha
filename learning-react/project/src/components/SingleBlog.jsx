@@ -61,6 +61,7 @@ const fetchSingleBlog = async ()=> {
       <p className="text-gray-700 leading-relaxed whitespace-pre-line">
         {blog.content}
       </p>
+      
     </div>
   )
 }
