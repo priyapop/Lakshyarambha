@@ -1,6 +1,6 @@
 import "./App.css";
 import CreateCategories from "./components/CreateCategories";
-import { NavLink, useLocation, Route, Routes } from "react-router-dom";
+import { NavLink,useNavigate, useLocation, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import { Blogs } from "./components/blog";
 import SingleBlog from "./components/SingleBlog";
@@ -16,11 +16,12 @@ import Profile from "./components/profile";
 import EditBlog from "./components/editBlog";
 import * as Dialog from "@radix-ui/react-dialog";
 function App() {
+  const navigate = useNavigate();
   const location = useLocation();
   const landingLinks = [{ action: <Login />, label: "Get Started" }];
   const [loginOpen, setloginOpen] = useState(false);
   const appLinks = [
-    { to: "/home", label: "Home" },
+    // { to: "/home", label: "Home" },
     // { to: "/blogs", label: "Browse" },
     { to: "/create", label: "Create" },
     { to: "/profile", label: "Profile" },
@@ -32,7 +33,7 @@ function App() {
   return (
     <>
       <nav className="sticky top-0 border-y-2 bg-white border-gray-300 flex items-center justify-between pl-25 pr-25 p-3 text-sm font-mono ">
-        <img src={BlogsIcon} alt="Blogs" className="h-9" />
+        <img src={BlogsIcon} onClick={() =>  navigate(`/home`)} alt="Blogs" className="h-9" />
         <div className="flex items-center gap-4">
           {links.map(({ to, label, action }) =>
             to ? (
@@ -100,6 +101,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:authorId" element={<Profile />} />
         <Route path="/blog/edit/:id" element={<EditBlog />} />
       </Routes>
     </>

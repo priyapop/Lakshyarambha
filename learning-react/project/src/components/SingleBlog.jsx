@@ -1,9 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
+import { useNavigate } from "react-router-dom";
 const SingleBlog = () => {
-
+const navigate = useNavigate();
     const {id} = useParams()
     const [blog, setBlog]=useState([])
   
@@ -34,13 +34,13 @@ const fetchSingleBlog = async ()=> {
 
       <div className="text-sm text-gray-500 mb-4">
         <span className="mr-4">
-          Author: {" "}<span className="text-gray-700 font-medium">{blog?.author?.name}</span>
+          Author: {" "}<span onClick={() =>  navigate(`/profile/${blog?.author?._id}`)} className="text-gray-700 font-medium hover:text-blue-500 cursor-pointer">{blog?.author?.name}</span>
         </span>
         {/* <span className="mr-4">
           Author: {" "}<span className="text-gray-700 font-medium">{userName}</span>
         </span> */}
-        <span>
-          Category:{" "} <span className="text-gray-700 font-medium">{blog?.category?.title}</span>
+        <span >
+          Category:{" "} <span onClick={() =>  navigate(`/single-category/${blog?.category?.title}`)} className="text-gray-700 font-medium hover:text-blue-500 cursor-pointer">{blog?.category?.title}</span>
         </span>
         <div className="text-xs mt-1 text-gray-400">
           Posted on {new Date(blog.createdAt).toLocaleDateString()}
