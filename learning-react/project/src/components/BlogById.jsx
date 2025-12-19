@@ -4,10 +4,28 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { IoMdMore } from "react-icons/io";
+import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import BForm from "./blogForm";
+
 export const Blogsbyid = ({ limit, className }) => {
   const [blog, setBlog] = useState([]);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [openId, setOpenId] = useState(null);
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/blog/deleteblog/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      setBlog((prev) => prev.filter((b) => b._id !== id));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -52,12 +70,11 @@ export const Blogsbyid = ({ limit, className }) => {
   return (
     <>
       <div className={`grid gap-6 ${className} `}>
-        {/*//sm:grid-cols-1 lg:grid-cols-3 gap-6 */}
         {visibleBlogs?.map((item) => (
           <div
             key={item._id}
             onClick={() => navigate(`/blogs/${item?._id}`)}
-            className="cursor-pointer bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200"
+            className="cursor-pointer bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-visible border border-gray-200"
           >
             {/* <img
               src={item.coverImage}
@@ -65,7 +82,7 @@ export const Blogsbyid = ({ limit, className }) => {
               className="h-35 w-full object-cover"
             /> */}
 
-            <div className="p-4  space-y-1">
+            <div className="p-4  space-y-1 ">
               <h2 className="text-xl font-bold text-gray-800">{item.title}</h2>
               <p className="text-sm text-gray-600">
                 {item.content.slice(0, 100)}...
@@ -96,19 +113,18 @@ export const Blogsbyid = ({ limit, className }) => {
               <div className="text-xs text-gray-400">
                 Posted on: {new Date(item?.createdAt).toLocaleDateString()}
               </div>
-
-              {/* <button
-                className="place-self-end"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpen((prev) => !prev);
-                }}
-              >
-                {open && (
-                  <div
-                    onClick={(e) => e.stopPropagation()}
-                    className="absolute right-3 top-12 w-40 bg-white border rounded-lg shadow-lg z-50"
-                  >
+              {/* <div className="relative  place-self-end">
+                <button
+                  className="p-2 rounded-full hover:bg-gray-100"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenId(openId === item._id ? null : item._id);
+                  }}
+                >
+                  <IoMdMore />
+                </button>
+                {openId === item._id && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg z-50  ">
                     <button className="block w-full px-4 py-2 text-left hover:bg-gray-100">
                       Edit
                     </button>
@@ -118,8 +134,82 @@ export const Blogsbyid = ({ limit, className }) => {
                   </div>
                 )}
 
-                <IoMdMore />
-              </button> */}
+                
+              </div> */}
+              <div className="relative" onClick={(e) => e.stopPropagation()}>
+                {/* 3 dots button */}
+                <button
+                  onClick={() =>
+                    setOpenId(openId === item._id ? null : item._id)
+                  }
+                  className="p-2 rounded-full hover:bg-gray-100"
+                >
+                  <IoMdMore />
+                </button>
+
+                {/* Dropdown */}
+                {openId === item._id && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg z-50">
+                    {/* <button
+                      onClick={() => handleEdit(item._id)}
+                      className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                    >
+                      Edit
+                    </button>
+                    {
+
+                    }
+                    <BForm/> */}
+
+                    <button
+                      onClick={() => navigate(`/blog/edit/${item._id}`)}
+                      className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                    >
+                      Edit
+                    </button>
+
+                    {/* DELETE WITH CONFIRMATION */}
+                    <AlertDialog.Root>
+                      <AlertDialog.Trigger asChild>
+                        <button className="block w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100">
+                          Delete
+                        </button>
+                      </AlertDialog.Trigger>
+
+                      <AlertDialog.Portal>
+                        <AlertDialog.Overlay className="fixed inset-0 bg-black/40 z-50" />
+
+                        <AlertDialog.Content className="fixed top-1/2 left-1/2 z-50 w-[90vw] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-6 shadow-lg">
+                          <AlertDialog.Title className="text-lg font-semibold">
+                            Delete blog?
+                          </AlertDialog.Title>
+
+                          <AlertDialog.Description className="mt-2 text-sm text-gray-600">
+                            This will permanently delete your blog post.
+                          </AlertDialog.Description>
+
+                          <div className="mt-6 flex justify-end gap-3">
+                            <AlertDialog.Cancel asChild>
+                              <button className="px-4 py-2 rounded-md border hover:bg-gray-100">
+                                Cancel
+                              </button>
+                            </AlertDialog.Cancel>
+
+                            <AlertDialog.Action asChild>
+                              <button
+                                onClick={() => handleDelete(item._id)}
+                                className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700"
+                              >
+                                Delete
+                              </button>
+                            </AlertDialog.Action>
+                          </div>
+                        </AlertDialog.Content>
+                      </AlertDialog.Portal>
+                    </AlertDialog.Root>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         ))}

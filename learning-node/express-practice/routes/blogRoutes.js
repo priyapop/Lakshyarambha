@@ -11,7 +11,7 @@ import {
 import { authMiddleware } from "../middleware/authMiddleware.js";
 const router = express.Router();
 // router.post("/createblog", createBlog);
-router.put("/updateblog/:id", updateBlog);
+router.patch("/updateblog/:id", updateBlog);
 router.delete("/deleteblog/:id", deleteBlog);
 router.get("/all", getBlogs); // all blogs
 router.get("/:id", getBlogById); // single blog

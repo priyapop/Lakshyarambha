@@ -50,11 +50,11 @@ export const Blogs = ({ limit, className }) => {
             onClick={() => navigate(`/blogs/${item?._id}`)}
             className="cursor-pointer bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200"
           >
-            <img
+            {/* <img
               src={item.coverImage}
               alt={item.title}
               className="h-35 w-full object-cover"
-            />
+            /> */}
 
             <div className="p-4 space-y-1">
               <h2 className="text-xl font-bold text-gray-800">{item.title}</h2>

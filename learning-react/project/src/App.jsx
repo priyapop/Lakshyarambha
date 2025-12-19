@@ -13,6 +13,7 @@ import Signup from "./components/signup";
 import BlogsIcon from "./assets/Blogs (6).svg";
 import Landing from "./components/landing";
 import Profile from "./components/profile";
+import EditBlog from "./components/editBlog";
 import * as Dialog from "@radix-ui/react-dialog";
 function App() {
   const location = useLocation();
@@ -20,7 +21,7 @@ function App() {
   const [loginOpen, setloginOpen] = useState(false);
   const appLinks = [
     { to: "/home", label: "Home" },
-    { to: "/blogs", label: "Browse" },
+    // { to: "/blogs", label: "Browse" },
     { to: "/create", label: "Create" },
     { to: "/profile", label: "Profile" },
     // {to:"/create-category",label:"Create Category"}
@@ -99,6 +100,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/blog/edit/:id" element={<EditBlog />} />
       </Routes>
     </>
   );
